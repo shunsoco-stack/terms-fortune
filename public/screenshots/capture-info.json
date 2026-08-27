@@ -1,0 +1,40 @@
+{
+  "source": "https://terms-fortune.vercel.app",
+  "viewport": {
+    "width": 1440,
+    "height": 1120
+  },
+  "browser": {
+    "channel": "chrome",
+    "version": "151.0.7922.174"
+  },
+  "history": "Seven actual dated results opened through the UI in a fresh profile.",
+  "rare": "Clearly labelled sample; not today's result and never saved to history.",
+  "screenshots": [
+    {
+      "file": "01-home.png",
+      "url": "https://terms-fortune.vercel.app/",
+      "capturedAt": "2026-08-27T10:22:52.272Z"
+    },
+    {
+      "file": "02-result.png",
+      "url": "https://terms-fortune.vercel.app/#result",
+      "capturedAt": "2026-08-27T10:22:52.617Z"
+    },
+    {
+      "file": "03-daikichi.png",
+      "url": "https://terms-fortune.vercel.app/#sample",
+      "capturedAt": "2026-08-27T10:22:53.130Z"
+    },
+    {
+      "file": "04-share.png",
+      "url": "https://terms-fortune.vercel.app/#result",
+      "capturedAt": "2026-08-27T10:22:52.814Z"
+    },
+    {
+      "file": "05-history.png",
+      "url": "https://terms-fortune.vercel.app/#history",
+      "capturedAt": "2026-08-27T10:22:54.268Z"
+    }
+  ]
+}

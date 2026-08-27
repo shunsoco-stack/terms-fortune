@@ -16,7 +16,7 @@
     "screenshots": "node scripts/capture-screenshots.mjs",
     "verify": "npm run lint && npm run typecheck && npm test && npm run secret-scan && npm run build"
   },
-  "engines": { "node": ">=22.0.0" },
+  "engines": { "node": "24.x" },
   "dependencies": {
     "@vercel/analytics": "2.0.1",
     "lucide-react": "^1.28.0",

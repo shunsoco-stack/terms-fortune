@@ -6,8 +6,7 @@
 架空の条文を一日ひとつ受け取る、小さな日替わり占いWebアプリです。
 紙の余白、朱色の印影、少しおかしな契約文で、毎日にひと息つくきっかけを届けます。
 
-公開アプリ：**公開確認待ち**
-GitHub：[shunsoco-stack/terms-fortune](https://github.com/shunsoco-stack/terms-fortune)
+[公開アプリを開く](https://terms-fortune.vercel.app) · [GitHubでソースを見る](https://github.com/shunsoco-stack/terms-fortune)
 
 表示する条文は、すべて本アプリ専用に書き下ろしたパロディです。実在するサービスの利用規約を転載していません。**法的効力はありません。法律相談ではありません。** 娯楽としてお楽しみください。
 
@@ -35,7 +34,7 @@ GitHub：[shunsoco-stack/terms-fortune](https://github.com/shunsoco-stack/terms-
 
 ## スクリーンショット
 
-公開後に取得した実画面を5枚掲載予定です。現在は撮影待ちです。撮影・公開検証の記録は [docs/verification.md](docs/verification.md) にまとめています。
+[公開アプリ](https://terms-fortune.vercel.app) を新しいChromeプロファイルで開いて撮影した5枚です。各画像の撮影元URL・時刻・ブラウザは [撮影記録](public/screenshots/capture-info.json)、検証範囲は [docs/verification.md](docs/verification.md) を参照してください。
 
 ### 1. トップ画面
 
@@ -61,15 +60,15 @@ GitHub：[shunsoco-stack/terms-fortune](https://github.com/shunsoco-stack/terms-
 
 ### 公開画面の撮影を再現する
 
-認証なしで表示できることを確認した、公開アプリのHTTPS URLを指定します。下のURLは記入例で、実際の公開URLに置き換えてください。
+認証なしで表示できる公開アプリのHTTPS URLを指定します。
 
 ~~~bash
-npm run screenshots -- https://verified-public-url
+npm run screenshots -- https://terms-fortune.vercel.app
 ~~~
 
 [撮影スクリプト](scripts/capture-screenshots.mjs) は新しいブラウザプロファイルで公開UIを操作し、上記5枚を public/screenshots/ に保存します。大吉は明示的な見本画面、履歴は直近7日分を実際に開いた状態で撮影します。既存の同名画像は更新されます。
 
-同時に生成する public/screenshots/capture-info.json は撮影元の記録です。公開元URL、ビューポート、ブラウザ、各画像のファイル名・撮影時のURL・撮影時刻、見本と履歴の扱いを残します。公開アプリから撮影したことを確認できるよう、5枚のPNGとこのJSONを一緒に管理します。
+同時に生成する [capture-info.json](public/screenshots/capture-info.json) は撮影元の記録です。公開元URL、ビューポート、ブラウザ、各画像のファイル名・撮影時のURL・撮影時刻、見本と履歴の扱いを残します。5枚のPNGとこのJSONを一緒に管理します。
 
 ## 実装
 
@@ -91,7 +90,7 @@ Next.js 16.3.3（App Router）／React 19／TypeScript／Tailwind CSS 4。アプ
 
 ## ローカルで動かす
 
-Node.js 24 LTSを推奨します（package.jsonの最低要件は22以上）。APIキーや環境変数の設定は不要です。
+Node.js 24.xを使用します（package.jsonのenginesで固定）。APIキーや環境変数の設定は不要です。
 
 ~~~bash
 git clone https://github.com/shunsoco-stack/terms-fortune.git
@@ -149,7 +148,7 @@ localStorageには閲覧した日付とテーマ設定を保存します。条�
 
 ブラウザの保存が制限されている場合も、占い自体は利用できます。履歴・設定は端末やブラウザをまたいで同期されません。
 
-Vercel Analyticsへ次の操作イベントを渡す計測コードを実装しています。ローカルのモックで、3種類のイベント・見本の除外・計測障害時の継続を確認しています。これは本番サービスでの受信・集計の確認ではありません。履歴一覧は送信しません。
+Vercel Analyticsへ次の操作イベントを渡す計測コードを実装しています。ローカルの本番ビルドで、実操作からSDKへの呼び出し・見本の除外・計測障害時の継続を確認しています。E2Eでは計測通信を遮断しており、Vercel側の受信・集計を確認したものではありません。履歴一覧は送信しません。
 
 | イベント | 対象 |
 | --- | --- |
@@ -159,15 +158,30 @@ Vercel Analyticsへ次の操作イベントを渡す計測コードを実装し�
 
 **計測上の制限：現在のデプロイ先はHobbyプランです。カスタムイベントの集計・ダッシュボード表示はPro／Enterprise限定のため、占い実行・画像保存・共有の本番集計は未対応です。** 実装済みの計測コードだけで、この要件を達成したとは扱いません。プラン変更や有料トライアル開始は行っていません。[Vercel公式のプラン別対応表](https://vercel.com/docs/analytics/limits-and-pricing)
 
-ページビューのWeb AnalyticsはHobbyの無料上限内で利用でき、プロジェクト設定の有効化は確認済みです。ただし現時点では、本番環境での受信成功は確認していません。[公式セットアップ手順](https://vercel.com/docs/analytics/quickstart) と [検証記録](docs/verification.md) を参照してください。計測できない場合も占い機能は止めません。
+ページビューのWeb AnalyticsはHobbyの無料上限内で利用でき、設定の有効化と公開環境でのSDKスクリプト読込みは確認済みです。ただし今回の自動テスト用ブラウザはSDKの計測対象から除外されるため、ページビューの本番受信・集計は確認していません。[公式セットアップ手順](https://vercel.com/docs/analytics/quickstart) と [検証記録](docs/verification.md) を参照してください。計測できない場合も占い機能は止めません。
 
 ## CI・公開
 
 [GitHub Actions](.github/workflows/ci.yml) で、mainへのpushとPull Request時に依存関係の固定インストール・lint・型検査・単体テスト・Secret Scan・本番ビルドを実行します。権限はcontentsの読み取りだけで、デプロイ用トークンを保持しない検証専用ワークフローです。
 
-VercelではこのリポジトリをNext.jsプロジェクトとしてImportするか、認証済みVercel CLIから公開できます。ルートディレクトリはリポジトリ直下、ビルドコマンドは npm run build です。
+ローカルでlint・typecheck・単体テスト78件・E2E58件・本番ビルドが成功し、[GitHubの品質CI](https://github.com/shunsoco-stack/terms-fortune/actions/runs/33062013483) も通過しています。ローカルE2Eと公開先での確認は [検証記録](docs/verification.md) に分けています。
+
+公開先では主要画面、1,200pxの共有画像生成、390px幅の表示、ダークモード、PWA関連ファイルとService Workerの制御を確認しています。公開ページの未捕捉ブラウザエラーは0件でした。SNSへの実投稿は行っていません。
+
+Vercelへの公開は認証済みCLIで行っています。GitHubからVercelへの自動デプロイは未接続のため、GitHubへのpushだけでは公開されません。再公開はリポジトリ直下から次の手順で行います。
+
+~~~bash
+npx vercel@59.7.0 login
+npx vercel@59.7.0 link
+npm run verify
+npx vercel@59.7.0 deploy --prod
+~~~
+
+loginとlinkは初回のみ必要です。linkでは自分のVercelチームと対象プロジェクトを選択します。フレームワークはNext.js、ルートディレクトリはリポジトリ直下、ビルドコマンドは npm run build です。
 
 Secret Scanはリポジトリ内のテキストをローカルで検査し、秘密鍵・既知のトークン形式・認証情報らしい代入・認証情報入りURLを検出します。検出時は値を表示せず、ファイル・行番号・ルール名だけを報告して失敗します。依存関係、ビルド成果物、バイナリ、ログ、シンボリックリンク、スキャナー自身のルール定義は対象外です。Git履歴の検査や完全な安全性を保証する監査ではありません。
+
+これとは別に、Gitleaks 8.30.1で初回公開時の全Git履歴を検査し、検出0件でした。GitHub Secret ScanningとPush Protectionも有効で、確認時点の未解決アラートは0件です。
 
 ## ライセンス
 

@@ -106,7 +106,7 @@ export function navigate(view: AppView, date?: string) {
   window.history.pushState(null, "", `${url.pathname}${url.search}${url.hash}`);
   window.dispatchEvent(new Event(LOCATION_EVENT));
   window.scrollTo({ top: 0, behavior: "instant" });
-  window.requestAnimationFrame(() => document.getElementById("main-content")?.focus());
+  window.requestAnimationFrame(() => document.getElementById("main-content")?.focus({ preventScroll: true }));
 }
 
 function applySystemTheme() {

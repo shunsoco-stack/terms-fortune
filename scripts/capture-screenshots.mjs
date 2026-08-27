@@ -25,6 +25,9 @@ const records = [];
 
 async function capture(name, locator) {
   await page.evaluate(() => document.fonts.ready);
+  // Start full-page captures at the actual page top so fixed offscreen skip
+  // links are not pulled into the bitmap by the browser's document coordinates.
+  if (!locator) await page.evaluate(() => window.scrollTo({ top: 0, left: 0, behavior: "instant" }));
   if (locator) await locator.screenshot({ path: join(output, name), animations: "disabled" });
   else await page.screenshot({ path: join(output, name), fullPage: true, animations: "disabled" });
   records.push({ file: name, url: page.url(), capturedAt: new Date().toISOString() });

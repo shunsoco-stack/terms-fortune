@@ -1,6 +1,6 @@
 # 利用規約占い｜掲載用文章
 
-公開アプリURL：公開確認待ち
+公開アプリURL：https://terms-fortune.vercel.app
 GitHub URL：https://github.com/shunsoco-stack/terms-fortune
 Tsukutta掲載状況：未掲載
 
@@ -28,7 +28,11 @@ Tsukutta掲載状況：未掲載
 
 日替わり結果は日本時間の日付から決定し、同じ日の結果は再読み込みしても変わりません。日付付きの共有URLからも同じ結果を再現できます。閲覧記録はlocalStorageで7暦日分を管理し、共有カードはブラウザのCanvasでPNG化。外部の占いAPIやアカウント登録を必要としない、小さく完結した構成です。
 
-Next.js・TypeScript・Tailwind CSSを使用し、lint・型検査・単体テスト・Secret Scan・本番ビルドをCIに組み込みました。Vercel Analytics向けに占い実行・画像保存・共有の計測コードを実装し、ローカルのモックで呼び出しを確認しています。ただし現在のHobbyプランではカスタムイベントの集計・表示は利用できないため、本番集計は未対応です。計測コードの実装とサービス側での受信実績を区別し、未確認の利用者数や成果は掲載していません。
+Next.js・TypeScript・Tailwind CSSを使用し、lint・型検査・単体テスト・Secret Scan・本番ビルドをCIに組み込みました。単体テスト78件と、ローカル本番ビルドを対象にしたデスクトップ・モバイル設定のE2E58件が成功し、GitHubの品質CIも通過しています。アプリはVercel、ソースはGitHubで公開しています。
+
+公開環境でも主要画面・モバイル幅・共有画像生成・PWA用ファイルを確認し、公開UIから撮影した5枚のスクリーンショットをREADMEに掲載しています。
+
+Vercel Analytics向けに占い実行・画像保存・共有の計測コードも実装し、実操作からSDKまでの呼び出しをローカルE2Eで確認しました。ただし現在のHobbyプランではカスタムイベントの集計・表示は利用できないため、本番集計は未対応です。テスト中は計測通信を遮断し、コードの動作確認とサービス側での受信実績を区別しています。未確認の利用者数や成果は掲載していません。
 
 表示条文は本アプリのために新しく作成したパロディです。実在サービスの利用規約を転載していません。法的効力はありません。法律相談ではありません。
 
@@ -74,7 +78,7 @@ Next.js・TypeScript・Tailwind CSSを使用し、lint・型検査・単体テ�
 
 よかったら、今日のあなたの条文を読んでみてください。
 
-公開アプリ：公開確認待ち
+公開アプリ：https://terms-fortune.vercel.app
 GitHub：https://github.com/shunsoco-stack/terms-fortune
 
 ※すべて書き下ろしのパロディです。法的効力はありません。法律相談ではありません。
@@ -87,7 +91,7 @@ Tsukutta掲載状況：未掲載
 
 ### 計測状況の注記
 
-- 実装済み：fortune_draw / image_save / share の計測コード。イベント3種類・見本除外・障害時継続をローカルモックで確認。
+- 実装済み：fortune_draw / image_save / share の計測コード。実操作からSDKへの呼び出し・見本除外・障害時継続をローカル本番ビルドで確認。E2Eは計測通信を遮断しており、Vercel側の受信・集計の確認ではありません。
 - 未対応：カスタムイベントの本番集計・ダッシュボード表示。現在のHobbyプランでは対象外で、Pro／Enterpriseが必要です。[公式のプラン別対応表](https://vercel.com/docs/analytics/limits-and-pricing)
-- ページビュー：Hobbyの無料枠でプロジェクト設定を有効化済み。ただし本番受信の確認とは別で、現時点で受信成功をうたっていません。[公式セットアップ手順](https://vercel.com/docs/analytics/quickstart)
+- ページビュー：Hobbyの無料枠で設定の有効化と公開SDKスクリプトの読込みを確認済み。自動テスト用ブラウザはSDK側で除外されるため、本番受信・集計は未確認です。[公式セットアップ手順](https://vercel.com/docs/analytics/quickstart)
 - プラン変更・有料トライアル開始・課金操作は行っていません。

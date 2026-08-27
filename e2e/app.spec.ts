@@ -197,6 +197,10 @@ test("a draw survives reload with the same date, clause, rank, and lucky details
   await freezeDate(page);
   await visitHome(page);
   await drawToday(page);
+  await expect(page.getByRole("main")).toBeFocused();
+  await expect.poll(() => page.evaluate(() => window.scrollY), {
+    message: "Drawing a fortune keeps the top-of-page position after focusing the result",
+  }).toBe(0);
   const expected = getFortune(TODAY);
   const article = page.getByRole("article", { name: `${formatJapaneseDate(TODAY)}の占い結果` });
   await expect(page.getByTestId("fortune-clause")).toHaveText(expected.clause.text);
