@@ -1,0 +1,12 @@
+.git
+.env*
+.tools
+.cache
+.npm-cache
+test-results
+playwright-report
+.playwright-cli
+tests
+e2e
+docs
+*.log

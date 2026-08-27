@@ -1,0 +1,40 @@
+{
+  "name": "terms-fortune",
+  "version": "1.0.0",
+  "private": true,
+  "description": "読まないはずの利用規約で、今日をちょっといい日に。オリジナル条文による日替わり占い。",
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "test:e2e": "playwright test",
+    "secret-scan": "node scripts/secret-scan.mjs",
+    "assets": "node scripts/generate-assets.mjs",
+    "screenshots": "node scripts/capture-screenshots.mjs",
+    "verify": "npm run lint && npm run typecheck && npm test && npm run secret-scan && npm run build"
+  },
+  "engines": { "node": ">=22.0.0" },
+  "dependencies": {
+    "@vercel/analytics": "2.0.1",
+    "lucide-react": "^1.28.0",
+    "next": "16.3.3",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@napi-rs/canvas": "^0.1.80",
+    "@playwright/test": "^1.58.0",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "16.3.3",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.5",
+    "typescript": "^5.9.3"
+  }
+}
