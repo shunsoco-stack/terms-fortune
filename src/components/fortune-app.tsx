@@ -16,6 +16,7 @@ import {
 } from "@/lib/client-state";
 import { trackFortuneEvent } from "@/lib/analytics";
 import { ShareControls } from "./share-controls";
+import { NinjaAdMaxSlot } from "./ninja-admax-slot";
 
 function NavLink({ view, active, children }: { view: AppView; active?: boolean; children: React.ReactNode }) {
   return (
@@ -54,7 +55,7 @@ function Footer() {
     <footer className="site-footer">
       <div className="footer-upper">
         <span className="footer-thought">日々に、ささやかな余白を。</span>
-        <div className="footer-links"><NavLink view="sample">大吉の見本 <ArrowUpRight size={13} /></NavLink><NavLink view="about">ご利用にあたって</NavLink></div>
+        <div className="footer-links"><NavLink view="sample">大吉の見本 <ArrowUpRight size={13} /></NavLink><NavLink view="about">ご利用にあたって</NavLink><a href="/privacy">プライバシーポリシー</a></div>
       </div>
       <div className="footer-lower">
         <span>© 利用規約占い <span className="footer-english">TERMS & FORTUNE</span></span>
@@ -190,6 +191,7 @@ function AboutView() {
         <section><span className="about-number">03</span><div><h2>あなたの履歴は、あなたの端末に。</h2><p>登録は不要です。確認した日付と表示モードを、ブラウザのlocalStorageに保存します。直近7日間の確認履歴は、この端末だけのものです。履歴画面から削除できます。</p><p>プライベートブラウズや保存を制限している環境では、履歴が次の訪問に残らない場合があります。別端末への同期はありません。</p></div></section>
         <section><span className="about-number">04</span><div><h2>ひとことの運勢を、おすそわけ。</h2><p>結果をPNG画像として保存したり、X・端末の共有メニュー・クリップボードで共有できます。共有カードの生成は端末内で行い、画像や確認履歴をサーバーへアップロードしません。</p><p>共有はあなたの操作で開始します。端末の共有メニューやクリップボードが使えない場合は、共有用の文章を手動でコピーできます。</p></div></section>
         <section><span className="about-number">05</span><div><h2>ホーム画面にも、小さな規約を。</h2><p>ブラウザのメニューから「アプリをインストール」または「ホーム画面に追加」を選ぶと、アプリのように使えます。Safariでは共有メニューから追加できます。</p><p>初回のオンライン読み込みと保存が完了すれば、オフラインでも占い・履歴・画像作成を利用できます。外部への共有には通信が必要です。</p></div></section>
+        <section><span className="about-number">07</span><div><h2>広告について。</h2><p>本番のトップページ末尾では、忍者ツールズ株式会社の広告配信サービス「忍者AdMax」を利用しています。Cookie等の利用とオプトアウトの方法は、<a href="/privacy">プライバシーポリシー</a>をご覧ください。</p></div></section>
         <section><span className="about-number">06</span><div><h2>よりよい使い心地のために。</h2><p>ページ閲覧の統計にVercel Analyticsを利用します。占い実行・画像保存・共有の計測コードも組み込んでいますが、現在の公開先プランでは操作イベントを集計できません。集計には対応プランが必要です。</p><p>確認履歴の一覧は送信しません。占いの生成に外部APIや生成AIは使用していません。共有イベントはXの投稿画面を開く操作・端末共有の完了・コピー成功を区別する設計です。Xへの投稿完了そのものを取得することはありません。</p><a href="https://vercel.com/docs/analytics/privacy-policy" target="_blank" rel="noopener noreferrer">Vercel Analyticsのプライバシーについて <ArrowUpRight size={14} /></a></div></section>
       </div>
       <button className="button button-primary about-cta" onClick={() => navigate("today")}>今日の規約をひらきにいく <ArrowRight size={17} /></button>
@@ -263,6 +265,7 @@ export function FortuneApp() {
       {!online && <div className="offline-banner" role="status"><WifiOff size={14} /> オフラインです。保存済みのアプリで占いを楽しめます。</div>}
       <main id="main-content" className="main-content" tabIndex={-1}>
         {view === "today" && <HomeView today={today} viewed={viewedDates.includes(today)} onDraw={draw} />}
+        {view === "today" && <NinjaAdMaxSlot />}
         {(view === "result" || view === "sample") && (invalidDate ? <div className="error-page"><Info size={28} /><h1>その日の条文は、開封できません。</h1><p>日付が正しくないか、まだ先の日付です。今日の運勢をお楽しみください。</p><button className="button button-primary" onClick={() => navigate("today")}>今日の規約へ戻る</button></div> : result ? <ResultView result={result} today={today} sample={view === "sample"} notify={setNotice} /> : <p className="loading-message" role="status">今日の日付を確認しています…</p>)}
         {view === "history" && <HistoryView today={today} dates={viewedDates} onRead={readDate} notify={setNotice} />}
         {view === "about" && <AboutView />}
